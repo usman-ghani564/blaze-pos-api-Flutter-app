@@ -3,6 +3,7 @@
    <application
         android:label="blaze_pos_api_flutter_app"
         android:icon="@mipmap/ic_launcher">
+        <uses-permission android:name="android.permission.INTERNET" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
