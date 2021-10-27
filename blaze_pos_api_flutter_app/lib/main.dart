@@ -14,11 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: FutureProvider<List<Product>>(
-        create: (ctx) => ProductProvider().getProducts(),
-        initialData: List<Product>.empty(),
-        child: ConsumerSignUpLoginScreen(),
-      ),
+      home: ConsumerSignUpLoginScreen(),
     );
   }
 }

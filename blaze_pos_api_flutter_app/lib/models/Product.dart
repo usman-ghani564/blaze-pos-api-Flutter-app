@@ -73,20 +73,20 @@ class Product {
   get assetpublicURL => this._assets._publicUrl;
 
   Product(
-      {id,
-      created,
-      modified,
-      deleted,
-      updated,
-      name,
-      flowerType,
-      unitPrice,
-      thc,
-      cbd,
-      weightPerUnit,
+      {id="",
+      created=0,
+      modified=0,
+      deleted=false,
+      updated=false,
+      name="",
+      flowerType="",
+      unitPrice=0.0,
+      thc=0.0,
+      cbd=0.0,
+      weightPerUnit="",
       assets,
-      inStock,
-      unitValue}) {
+      inStock=false,
+      unitValue=0.0}) {
     this._pid = id;
     this._created = created;
     this._modified = modified;
@@ -111,7 +111,8 @@ class Product {
       deleted: json['deleted'] as bool,
       updated: json['updated'] as bool,
       name: json['name'] as String,
-      flowerType: json['flowerType'] as String,
+      flowerType: json['flowerType'] == null
+          ? "" : json['flowerType'] as String,
       thc: json['thc'] as double,
       cbd: json['cbd'] as double,
       unitPrice: json['unitPrice'] as double,

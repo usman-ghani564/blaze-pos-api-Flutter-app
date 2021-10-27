@@ -1,28 +1,36 @@
 import 'dart:convert' as convert;
-
 import 'dart:developer' as dev;
 
-import 'package:blaze_pos_api_flutter_app/models/Product.dart';
+import 'package:blaze_pos_api_flutter_app/models/consumer.dart';
 import 'package:http/http.dart' as http;
 
-class ProductProvider {
-  List<Product> _products = List<Product>.empty(growable: true);
-  ProductProvider() {
-    print('Product Provider is initiallized');
+class ConsumerProvider {
+  ConsumerUser _consumer = ConsumerUser();
+  ConsumerProvider() {
+    print('Consumer Provider is initiallized');
   }
 
-  List<Product> get getProduct {
-    //This will return a copy of products not the original reference to the products
-    return [..._products];
+  ConsumerUser get getConsumer {
+    return _consumer;
   }
 
-  Future<List<Product>> getProducts() async {
+  Future<ConsumerUser> getActiveConsumer(
+      String email, String phoneNumber) async {
     late String _data;
     Map<String, dynamic> jsonData;
 
-    print('Came in getProducts Function');
+    if (email == "" && phoneNumber == "") {
+      return _consumer;
+    }
+
+    final queryParameters = {
+      'email': email,
+      'phoneNumber': phoneNumber,
+    };
+
+    print('Came in getActiveConsumer Function');
     var url = Uri.https(
-        'api.partners.blaze.me', '/api/v1/partner/store/inventory/products');
+        'api.partners.blaze.me', '/api/v1/partner/user/find', queryParameters);
 
     // Await the http get response, then decode the json-formatted response.
     await http.get(url, headers: {
@@ -36,23 +44,16 @@ class ProductProvider {
         _data = (convert.jsonDecode(response.body) as Map<String, dynamic>)
             .toString();
 
+        print(_data);
+
         jsonData = convert.jsonDecode(response.body) as Map<String, dynamic>;
         //dev.debugger();
-        int counter = 0;
-        jsonData['values'].forEach((val) {
-          /*if (counter >= 23) {
-            _products.add(Product.fromJson(val));
-          }*/
-
-          _products.add(Product.fromJson(val));
-          counter++;
-          //print("size = " + _products.length.toString());
-        });
+        _consumer = ConsumerUser.fromJson(jsonData);
       } else {
         print('Request failed with status: ${response.statusCode}.');
         _data = response.statusCode.toString();
       }
     });
-    return _products;
+    return _consumer;
   }
 }

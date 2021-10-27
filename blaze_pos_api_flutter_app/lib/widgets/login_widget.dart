@@ -1,4 +1,10 @@
+import 'dart:ui';
+
+import 'package:blaze_pos_api_flutter_app/models/consumer.dart';
+import 'package:blaze_pos_api_flutter_app/providers/consumer_provider.dart';
+import 'package:blaze_pos_api_flutter_app/screens/Login_signup_loading_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key? key}) : super(key: key);
@@ -9,6 +15,11 @@ class LoginWidget extends StatefulWidget {
 
 class _LoginWidgetState extends State<LoginWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController logincontroller = TextEditingController();
+  TextEditingController signupcontroller = TextEditingController();
+  String _email = "";
+  String _phoneNumber = "";
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -76,6 +87,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         margin:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                         child: TextFormField(
+                          controller: logincontroller,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -97,6 +109,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         margin:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                         child: TextFormField(
+                          controller: signupcontroller,
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -114,21 +127,36 @@ class _LoginWidgetState extends State<LoginWidget> {
                           },
                         ),
                       ),
-                      SizedBox(height: 30,),
+                      SizedBox(
+                        height: 30,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           InkWell(
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
-                                // Process data.
+                                Navigator.pushReplacement(
+                                  context, 
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) => LoginSignUpLoadingScreen(logincontroller.text.toString(), signupcontroller.text.toString())));
+
+                                print(_email + " " + _phoneNumber);
                               }
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                              child: Text('login', style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 18),),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 40, vertical: 20),
+                              child: Text(
+                                'login',
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                    fontSize: 18),
+                              ),
                               decoration: BoxDecoration(
-                                border: Border.all(width: 1, color: Theme.of(context).primaryColor),
+                                border: Border.all(
+                                    width: 1,
+                                    color: Theme.of(context).primaryColor),
                                 borderRadius: BorderRadius.circular(100),
                               ),
                             ),
@@ -136,17 +164,44 @@ class _LoginWidgetState extends State<LoginWidget> {
                           InkWell(
                             onTap: () {},
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                              child: Text('sign up', style: TextStyle(color: Colors.white, fontSize: 18,),),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 40, vertical: 20),
+                              child: Text(
+                                'sign up',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
-                                border: Border.all(width: 1, color: Theme.of(context).primaryColor),
+                                border: Border.all(
+                                    width: 1,
+                                    color: Theme.of(context).primaryColor),
                                 borderRadius: BorderRadius.circular(100),
                               ),
                             ),
                           ),
                         ],
                       ),
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'or login with',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  'guest mode',
+                                  style: TextStyle(fontSize: 16),
+                                ))
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
