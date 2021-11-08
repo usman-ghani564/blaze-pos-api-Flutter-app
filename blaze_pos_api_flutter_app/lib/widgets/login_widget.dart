@@ -2,30 +2,31 @@ import 'dart:ui';
 
 import 'package:blaze_pos_api_flutter_app/models/consumer.dart';
 import 'package:blaze_pos_api_flutter_app/providers/consumer_provider.dart';
+import 'package:blaze_pos_api_flutter_app/screens/Consumer_SignUp_Login_Screen.dart';
 import 'package:blaze_pos_api_flutter_app/screens/Login_signup_loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoginWidget extends StatefulWidget {
-  const LoginWidget({Key? key}) : super(key: key);
-
+  String _error = "";
+  LoginWidget(String e) {
+    _error = e;
+    print('Error: ' + e);
+  }
   @override
   _LoginWidgetState createState() => _LoginWidgetState();
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController logincontroller = TextEditingController();
-  TextEditingController signupcontroller = TextEditingController();
-  String _email = "";
-  String _phoneNumber = "";
-  
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController phoneNumbercontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      color: Colors.grey[200],
       child: Column(
         children: [
           Row(
@@ -83,11 +84,18 @@ class _LoginWidgetState extends State<LoginWidget> {
                       SizedBox(
                         height: 100,
                       ),
+                      Text(
+                        widget._error,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 16,
+                        ),
+                      ),
                       Container(
                         margin:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                         child: TextFormField(
-                          controller: logincontroller,
+                          controller: emailcontroller,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -109,7 +117,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         margin:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                         child: TextFormField(
-                          controller: signupcontroller,
+                          controller: phoneNumbercontroller,
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -137,11 +145,19 @@ class _LoginWidgetState extends State<LoginWidget> {
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
                                 Navigator.pushReplacement(
-                                  context, 
+                                  context,
                                   MaterialPageRoute(
-                                    builder: (BuildContext context) => LoginSignUpLoadingScreen(logincontroller.text.toString(), signupcontroller.text.toString())));
+                                    builder: (BuildContext context) =>
+                                        LoginSignUpLoadingScreen(
+                                      email: emailcontroller.text.toString(),
+                                      phone:
+                                          phoneNumbercontroller.text.toString(),
+                                      islogin: true,
+                                    ),
+                                  ),
+                                );
 
-                                print(_email + " " + _phoneNumber);
+                                //print(_email + " " + _phoneNumber);
                               }
                             },
                             child: Container(
@@ -162,7 +178,15 @@ class _LoginWidgetState extends State<LoginWidget> {
                             ),
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      ConsumerSignUpLoginScreen("", false),
+                                ),
+                              );
+                            },
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 40, vertical: 20),
