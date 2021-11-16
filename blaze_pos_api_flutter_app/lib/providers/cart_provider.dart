@@ -9,7 +9,9 @@ import 'package:http/http.dart' as http;
 
 class CartProvider {
   static Cart _cart = Cart();
-  CartProvider() {
+  Function _sendError = () {};
+  CartProvider({function}) {
+    _sendError = function;
     //print('Consumer Provider is initiallized');
   }
 
@@ -25,8 +27,16 @@ class CartProvider {
     _cart.consumerUser = c;
   }
 
+  static setConsumerAddress(Address address) {
+    _cart.setConsumerAddress(address);
+  }
+
   static void addProductToCart(Product product) {
     _cart.addProduct(product);
+  }
+
+  void setPaymentMethod(String pm) {
+    _cart.setPaymentMethod(pm);
   }
 
   void prepareCart({
@@ -74,6 +84,7 @@ class CartProvider {
         //_cart = Cart.fromJson(jsonData);
       } else {
         print('Request failed with status: ${response.body}.');
+        _sendError('An error occcured during process');
         _data = response.statusCode.toString();
       }
     });
@@ -119,6 +130,7 @@ class CartProvider {
         //_cart = Cart.fromJson(jsonData);
       } else {
         print('Request failed with status: ${response.statusCode}.');
+        _sendError('An error occcured during process');
         _data = response.statusCode.toString();
       }
     });
@@ -157,14 +169,16 @@ class CartProvider {
         //print(convert.jsonDecode(response.body) as Map<String, dynamic>);
         _data = (convert.jsonDecode(response.body) as Map<String, dynamic>)
             .toString();
-
+        print('Cart is submitted');
         print(_data);
 
         jsonData = convert.jsonDecode(response.body) as Map<String, dynamic>;
 
         //_cart = Cart.fromJson(jsonData);
       } else {
+        print('In cart submit function!');
         print('Request failed with status: ${response.statusCode}.');
+        _sendError('An error occcured during process');
         _data = response.statusCode.toString();
       }
     });

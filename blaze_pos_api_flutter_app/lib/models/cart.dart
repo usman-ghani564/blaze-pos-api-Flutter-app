@@ -155,6 +155,14 @@ class Cart {
   String _transactionId = "";
   String _transactionSource = "";
 
+  void setPaymentMethod(String pm) {
+    _items._paymentOption = pm;
+  }
+
+  void setConsumerAddress(Address a) {
+    _consumerUser.address = a;
+  }
+
   void addProduct(Product product) {
     _items.addProduct(product);
   }
@@ -169,6 +177,10 @@ class Cart {
 
   int getItemsLength() {
     return _items.getlength();
+  }
+
+  String getPaymentOption() {
+    return _items.paymentOption;
   }
 
   double getTotalPrice() => _items.geTotalPrice();
@@ -301,8 +313,10 @@ class Cart {
 
 class Items {
   Items({
+    paymentOption = "",
     items,
   }) {
+    this._paymentOption = paymentOption;
     if (items != null) {
       this._iitems = items;
     }
@@ -310,6 +324,8 @@ class Items {
 
   factory Items.fromJson(Map<String, dynamic> json) {
     return Items(
+      paymentOption:
+          json['paymentOption'] == null ? "Cash" : json['paymentOption'],
       items: json['items'].forEach(
         (item) {
           return Item.fromJson(item);
@@ -319,6 +335,10 @@ class Items {
   }
 
   List<Item> _iitems = List.empty(growable: true);
+  String _paymentOption = "";
+  String get paymentOption => this._paymentOption;
+
+  set paymentOption(String value) => this._paymentOption = value;
 
   int getlength() {
     return _iitems.length;
@@ -376,6 +396,7 @@ class Items {
   }
 
   Map toJson() => {
+        'paymentOption': _paymentOption,
         'items': this._iitems.map((element) {
           return element.toJson();
         }).toList(),

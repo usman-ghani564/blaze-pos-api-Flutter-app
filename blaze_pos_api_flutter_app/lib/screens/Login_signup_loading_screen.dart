@@ -49,12 +49,13 @@ class _LoginSignUpLoadingScreenState extends State<LoginSignUpLoadingScreen> {
       providers: [
         widget._isLoginPressed
             ? FutureProvider<ConsumerUser>(
-                create: (ctx) => ConsumerProvider()
+                create: (ctx) => ConsumerProvider(sendError: () {})
                     .getActiveConsumer(widget._email, widget._phoneNumber),
                 initialData: ConsumerUser(),
               )
             : FutureProvider<ConsumerUser>(
-                create: (ctx) => ConsumerProvider().getSignupConsumer(
+                create: (ctx) =>
+                    ConsumerProvider(sendError: () {}).getSignupConsumer(
                   email: widget._email,
                   password: widget._password,
                   firstName: widget._firstName,

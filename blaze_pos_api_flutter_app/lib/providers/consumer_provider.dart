@@ -8,8 +8,10 @@ import 'package:http/http.dart' as http;
 class ConsumerProvider {
   ConsumerUser _consumer = ConsumerUser();
   String _error = "";
-  ConsumerProvider() {
-    //print('Consumer Provider is initiallized');
+  Function _sendError = () {};
+  ConsumerProvider({sendError}) {
+    _sendError = sendError;
+    //print('Consumer Provider is initialized');
   }
 
   ConsumerUser get getConsumer {
@@ -219,7 +221,7 @@ class ConsumerProvider {
         _data = (convert.jsonDecode(response.body) as Map<String, dynamic>)
             .toString();
 
-        print(_data);
+        //print(_data);
 
         jsonData = convert.jsonDecode(response.body) as Map<String, dynamic>;
 
@@ -227,6 +229,7 @@ class ConsumerProvider {
       } else {
         print('Request failed with status: ${response.statusCode}.');
         _data = response.statusCode.toString();
+        _sendError('An error occurred!');
         _error = _data;
       }
     });

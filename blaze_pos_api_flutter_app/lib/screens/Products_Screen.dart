@@ -68,11 +68,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   Widget validateLogin() {
     if (widget._isLoginPressed &&
-        ConsumerProvider().getLoginError() == "" &&
+        ConsumerProvider(sendError: () {}).getLoginError() == "" &&
         _consumer.cuid == "") {
       return CircularProgressIndicator();
     } else if (widget._isLoginPressed &&
-        ConsumerProvider().getLoginError() != "") {
+        ConsumerProvider(sendError: () {}).getLoginError() != "") {
       return ConsumerSignUpLoginScreen("Wrong Credentials", true);
     }
     return CircularProgressIndicator();
