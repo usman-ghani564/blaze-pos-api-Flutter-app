@@ -7,7 +7,7 @@
    
    <application
         android:label="blaze_pos_api_flutter_app"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/app_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -91,17 +91,35 @@ class _CartScreenState extends State<CartScreen> {
                     width: 10,
                   ),
                   Expanded(
-                    child: ElevatedButton(
-                      onPressed: CartProvider.getCart.getItemsLength() == 0
-                          ? null
-                          : _isButtonDisabled
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                            onPressed:
+                                CartProvider.getCart.getItemsLength() == 0
+                                    ? null
+                                    : _isButtonDisabled
+                                        ? null
+                                        : () {
+                                            setState(() {
+                                              CartProvider.resetCart();
+                                              widget._updateCartCount();
+                                            });
+                                          },
+                            child: Text('Reset Cart')),
+                        ElevatedButton(
+                          onPressed: CartProvider.getCart.getItemsLength() == 0
                               ? null
-                              : () {
-                                  _setAddress();
-                                },
-                      child: Text('Buy'),
+                              : _isButtonDisabled
+                                  ? null
+                                  : () {
+                                      _setAddress();
+                                    },
+                          child: Text('Buy'),
+                        ),
+                      ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

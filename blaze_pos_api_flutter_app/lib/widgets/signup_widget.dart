@@ -2,8 +2,6 @@ import 'package:blaze_pos_api_flutter_app/screens/Consumer_SignUp_Login_Screen.d
 import 'package:blaze_pos_api_flutter_app/screens/Login_signup_loading_screen.dart';
 import 'package:flutter/material.dart';
 
-enum SingingCharacter { male, female, others }
-
 class SignupWidget extends StatefulWidget {
   const SignupWidget({Key? key}) : super(key: key);
 
@@ -12,7 +10,6 @@ class SignupWidget extends StatefulWidget {
 }
 
 class _SignupWidgetState extends State<SignupWidget> {
-  SingingCharacter? _character = SingingCharacter.male;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController phoneNumbercontroller = TextEditingController();
@@ -189,45 +186,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                           },
                         ),
                       ),
-                      Column(
-                        children: <Widget>[
-                          ListTile(
-                            title: const Text('MALE'),
-                            leading: Radio<SingingCharacter>(
-                              value: SingingCharacter.male,
-                              groupValue: _character,
-                              onChanged: (SingingCharacter? value) {
-                                setState(() {
-                                  _character = value;
-                                });
-                              },
-                            ),
-                          ),
-                          ListTile(
-                            title: const Text('FEMALE'),
-                            leading: Radio<SingingCharacter>(
-                              value: SingingCharacter.female,
-                              groupValue: _character,
-                              onChanged: (SingingCharacter? value) {
-                                setState(() {
-                                  _character = value;
-                                });
-                              },
-                            ),
-                          ),
-                          ListTile(
-                            title: const Text('OTHERS'),
-                            leading: Radio<SingingCharacter>(
-                              value: SingingCharacter.others,
-                              groupValue: _character,
-                              onChanged: (SingingCharacter? value) {
-                                setState(() {
-                                  _character = value;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
+                      SizedBox(
+                        height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -273,10 +233,6 @@ class _SignupWidgetState extends State<SignupWidget> {
                                       ln: lastNamecontroller.text.toString(),
                                       phone:
                                           phoneNumbercontroller.text.toString(),
-                                      sex: _character
-                                          .toString()
-                                          .replaceRange(0, 17, "")
-                                          .toUpperCase(),
                                       islogin: false,
                                     ),
                                   ),

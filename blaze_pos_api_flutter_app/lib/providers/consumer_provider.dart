@@ -66,14 +66,14 @@ class ConsumerProvider {
     return await _error;
   }
 
-  Future<ConsumerUser> getSignupConsumer(
-      {String email = "",
-      String phoneNumber = "",
-      int dob = 0,
-      String firstName = "",
-      String lastName = "",
-      String password = "",
-      String sex = ""}) async {
+  Future<ConsumerUser> getSignupConsumer({
+    String email = "",
+    String phoneNumber = "",
+    int dob = 0,
+    String firstName = "",
+    String lastName = "",
+    String password = "",
+  }) async {
     late String _data;
     Map<String, dynamic> jsonData;
     //dev.debugger();
@@ -95,7 +95,6 @@ class ConsumerProvider {
         "firstName": firstName,
         "lastName": lastName,
         "password": password,
-        "sex": sex,
         "phoneNumber": phoneNumber,
       }),
     )

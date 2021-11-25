@@ -13,7 +13,6 @@ class LoginSignUpLoadingScreen extends StatefulWidget {
   String _phoneNumber = "";
   String _firstName = "";
   String _lastName = "";
-  String _sex = "";
   String _password = "";
   int _dob = 0;
   bool _isLoginPressed = false;
@@ -33,7 +32,6 @@ class LoginSignUpLoadingScreen extends StatefulWidget {
     _lastName = ln;
     _password = pass;
     _dob = dateOfBirth;
-    _sex = sex;
     _isLoginPressed = islogin;
   }
 
@@ -61,7 +59,6 @@ class _LoginSignUpLoadingScreenState extends State<LoginSignUpLoadingScreen> {
                   firstName: widget._firstName,
                   lastName: widget._lastName,
                   dob: widget._dob,
-                  sex: widget._sex,
                   phoneNumber: widget._phoneNumber,
                 ),
                 initialData: ConsumerUser(),
