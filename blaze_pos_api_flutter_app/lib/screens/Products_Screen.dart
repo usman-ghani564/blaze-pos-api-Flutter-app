@@ -1,12 +1,12 @@
 import 'dart:math';
 
 import 'package:blaze_pos_api_flutter_app/models/Product.dart';
-import 'package:blaze_pos_api_flutter_app/models/cart.dart';
 import 'package:blaze_pos_api_flutter_app/models/consumer.dart';
 import 'package:blaze_pos_api_flutter_app/providers/cart_provider.dart';
 import 'package:blaze_pos_api_flutter_app/providers/consumer_provider.dart';
 import 'package:blaze_pos_api_flutter_app/screens/Cart_Screen.dart';
 import 'package:blaze_pos_api_flutter_app/screens/Consumer_SignUp_Login_Screen.dart';
+import 'package:blaze_pos_api_flutter_app/widgets/featured_products.dart';
 import 'package:blaze_pos_api_flutter_app/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -102,10 +102,45 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 children: [
                   const DrawerHeader(
                     decoration: BoxDecoration(
-                      color: Colors.blue,
+                      image: DecorationImage(
+                        image: AssetImage('images/app_icon.png'),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    child: Text('Drawer Header'),
+                    child: null,
                   ),
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.shopping_bag_outlined),
+                    title: Text(
+                      'Products',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.shopping_cart_outlined),
+                    title: Text(
+                      'My Cart',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              CartScreen(_consumer, () {}),
+                        ),
+                      );
+                    },
+                  ),
+                  Divider(),
                   ListTile(
                     leading: Icon(Icons.logout),
                     title: Text(
@@ -124,11 +159,24 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         ),
                       );
                     },
-                  )
+                  ),
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.info_outline),
+                    title: Text(
+                      'About',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  Divider(),
                 ],
               ),
             ),
-            body: ProductsConatiner(context),
+            body: SingleChildScrollView(child: ProductsConatiner(context)),
           );
   }
 
@@ -204,6 +252,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
           : Column(
               children: [
                 TopBanner(context),
+                FeaturedProducts(),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   child: Card(
@@ -241,7 +290,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   Container TopBanner(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 200,
+      height: MediaQuery.of(context).size.height * 0.25,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(_products[getRandomProduct()].assetpublicURL),
@@ -258,7 +307,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
             width: 20,
           ),
           Container(
-            width: 200,
+            width: MediaQuery.of(context).size.width * 0.52,
             child: Text(
               _products[widget._randomNumber].name,
               style: TextStyle(
@@ -269,8 +318,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
             ),
           ),
           Container(
-            width: 150,
-            height: 170,
+            width: MediaQuery.of(context).size.height * 0.20,
+            height: MediaQuery.of(context).size.width * 0.40,
             child: Card(
               elevation: 10,
               child: Image.network(

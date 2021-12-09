@@ -204,7 +204,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 20),
+                                  horizontal: 25, vertical: 15),
                               child: Text(
                                 'login',
                                 style: TextStyle(
@@ -242,7 +242,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 20),
+                                  horizontal: 25, vertical: 15),
                               child: Text(
                                 'sign up',
                                 style: TextStyle(

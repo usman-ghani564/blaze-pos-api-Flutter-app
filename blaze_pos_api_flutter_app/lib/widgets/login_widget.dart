@@ -162,7 +162,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 20),
+                                  horizontal: 25, vertical: 15),
                               child: Text(
                                 'login',
                                 style: TextStyle(
@@ -189,7 +189,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 20),
+                                  horizontal: 25, vertical: 15),
                               child: Text(
                                 'sign up',
                                 style: TextStyle(
@@ -208,24 +208,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                         ],
                       ),
-                      Container(
-                        margin: EdgeInsets.only(top: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'or login with',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  'guest mode',
-                                  style: TextStyle(fontSize: 16),
-                                ))
-                          ],
-                        ),
-                      )
                     ],
                   ),
                 ),

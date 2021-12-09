@@ -2,14 +2,21 @@ import 'package:blaze_pos_api_flutter_app/screens/Consumer_SignUp_Login_Screen.d
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MaterialApp(
+      home: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ConsumerSignUpLoginScreen("", true),
-    );
+    return ConsumerSignUpLoginScreen("", true);
   }
 }
